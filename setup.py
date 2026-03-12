@@ -9,12 +9,27 @@ import shutil
 # ==========================================
 
 FRP_CONFIG = {
-    "server_addr": "18.141.195.132",  # Your Singapore Server IP
+    "server_addr": "18.141.195.132",  # Default IP
     "server_port": 7000,            # Control Port
     "token":       "gg.gg",         # Auth Token
     "remote_port": 6000,            # Juice Port (TCP & UDP)
     "local_port":  43210            # Internal Port
 }
+
+# Check if running in Google Colab to prompt for IP
+try:
+    import google.colab
+    IN_COLAB = True
+except ImportError:
+    IN_COLAB = False
+
+if IN_COLAB:
+    print("\n--- 🛠️  COLAB DETECTED ---")
+    user_ip = input(f"Enter FRP Server IP (press enter for default {FRP_CONFIG['server_addr']}): ").strip()
+    if user_ip:
+        FRP_CONFIG["server_addr"] = user_ip
+    print(f"Using FRP Server IP: {FRP_CONFIG['server_addr']}\n")
+
 
 # ==========================================
 # ⚙️ UTILS
